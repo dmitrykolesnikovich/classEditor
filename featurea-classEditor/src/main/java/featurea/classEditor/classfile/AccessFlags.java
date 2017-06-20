@@ -27,32 +27,6 @@ public class AccessFlags {
     private boolean bSuperFlagSet;
     private boolean bSynchronizedFlagSet;
 
-    public static AccessFlags getValidFlags(int validFlags) {
-        AccessFlags accessFlags = new AccessFlags();
-        accessFlags.setPublic(true);
-        if ((validFlags == 0) || (validFlags == 2)) {
-            accessFlags.setPrivate(true);
-            accessFlags.setProtected(true);
-            accessFlags.setStatic(true);
-            accessFlags.setFinal(true);
-        }
-        if (validFlags == 0) {
-            accessFlags.setVolatile(true);
-            accessFlags.setTransient(true);
-        } else if (validFlags == 2) {
-            accessFlags.setSynchronized(true);
-            accessFlags.setNative(true);
-            accessFlags.setAbstract(true);
-            accessFlags.setStrict(true);
-        } else if (validFlags == 4) {
-            accessFlags.setFinal(true);
-            accessFlags.setSuper(true);
-            accessFlags.setInterface(true);
-            accessFlags.setAbstract(true);
-        }
-        return accessFlags;
-    }
-
     public void read(DataInputStream inputStream) throws IOException {
         this.iAccessFlags = inputStream.readUnsignedShort();
         if (32 == (0x20 & this.iAccessFlags)) {
@@ -332,6 +306,36 @@ public class AccessFlags {
             this.iAccessFlags &= (this.iAccessFlags ^ 0x800);
         }
     }
+
+    /*static API*/
+
+    public static AccessFlags getValidFlags(int validFlags) {
+        AccessFlags accessFlags = new AccessFlags();
+        accessFlags.setPublic(true);
+        if ((validFlags == 0) || (validFlags == 2)) {
+            accessFlags.setPrivate(true);
+            accessFlags.setProtected(true);
+            accessFlags.setStatic(true);
+            accessFlags.setFinal(true);
+        }
+        if (validFlags == 0) {
+            accessFlags.setVolatile(true);
+            accessFlags.setTransient(true);
+        } else if (validFlags == 2) {
+            accessFlags.setSynchronized(true);
+            accessFlags.setNative(true);
+            accessFlags.setAbstract(true);
+            accessFlags.setStrict(true);
+        } else if (validFlags == 4) {
+            accessFlags.setFinal(true);
+            accessFlags.setSuper(true);
+            accessFlags.setInterface(true);
+            accessFlags.setAbstract(true);
+        }
+        return accessFlags;
+    }
+
+    /*technical stuff*/
 
     @Override
     public String toString() {

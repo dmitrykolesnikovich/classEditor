@@ -33,6 +33,14 @@ public abstract class Attribute {
 
     public abstract boolean verify(String paramString, Vector result);
 
+    public void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool) throws IOException {
+        this.iAttribNameIndex = paramConstantPool.getIndexOf(this.cpAttribName);
+        paramDataOutputStream.writeShort(this.iAttribNameIndex);
+        writeAttributeDetails(paramDataOutputStream, paramConstantPool);
+    }
+
+    /*static API*/
+
     public static Attribute readAndCreate(DataInputStream paramDataInputStream, ConstantPool paramConstantPool) throws IOException {
         int i = paramDataInputStream.readUnsignedShort();
         ConstantPoolInfo localConstantPoolInfo = paramConstantPool.getPoolInfo(i);
@@ -73,12 +81,6 @@ public abstract class Attribute {
             return new DeprecatedAttribute();
         }
         return new UnknownAttribute();
-    }
-
-    public void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool) throws IOException {
-        this.iAttribNameIndex = paramConstantPool.getIndexOf(this.cpAttribName);
-        paramDataOutputStream.writeShort(this.iAttribNameIndex);
-        writeAttributeDetails(paramDataOutputStream, paramConstantPool);
     }
 
 }

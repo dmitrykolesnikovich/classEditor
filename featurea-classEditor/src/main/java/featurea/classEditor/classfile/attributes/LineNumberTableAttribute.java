@@ -55,6 +55,8 @@ public class LineNumberTableAttribute extends Attribute {
         return true;
     }
 
+    /*technical stuff*/
+
     @Override
     public String toString() {
         return "Attribute " + this.sName + ". Length=" + this.iAttribLength + ". TableLength=" + this.vectEntries.size();

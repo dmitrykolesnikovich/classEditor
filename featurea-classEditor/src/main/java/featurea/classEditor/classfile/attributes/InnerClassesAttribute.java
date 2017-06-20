@@ -9,16 +9,15 @@ import java.util.Vector;
 
 public class InnerClassesAttribute extends Attribute {
 
-    int iNumberOfClasses;
-    Vector vectInnerClassInfo;
+    private int iNumberOfClasses;
+    private Vector vectInnerClassInfo;
 
     public InnerClassesAttribute() {
         this.sName = "InnerClasses";
     }
 
     @Override
-    public void readAttributeDetails(DataInputStream paramDataInputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void readAttributeDetails(DataInputStream paramDataInputStream, ConstantPool paramConstantPool) throws IOException {
         this.iAttribLength = paramDataInputStream.readInt();
         this.vectInnerClassInfo = null;
         if ((this.iNumberOfClasses = paramDataInputStream.readUnsignedShort()) > 0) {
@@ -63,6 +62,8 @@ public class InnerClassesAttribute extends Attribute {
         }
         return bool;
     }
+
+     /*technical stuff*/
 
     @Override
     public String toString() {

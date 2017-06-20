@@ -57,6 +57,8 @@ public class ClassNames {
         this.cpSuperClass.refUTF8.sUTFStr = Utils.convertStrToClassStr(paramString);
     }
 
+    /*technical stuff*/
+
     @Override
     public String toString() {
         String str = "This class: " + this.cpThisClass + ", ";

@@ -16,9 +16,9 @@ public class InnerClassInfo {
     public ConstantPoolInfo cpInnerClass;
     public ConstantPoolInfo cpOuterClass;
     public ConstantPoolInfo cpInnerName;
-    int iInnerClassInfoIndex;
-    int iOuterClassInfoIndex;
-    int iInnerNameIndex;
+    private int iInnerClassInfoIndex;
+    private int iOuterClassInfoIndex;
+    private int iInnerNameIndex;
 
     public void read(DataInputStream paramDataInputStream, ConstantPool paramConstantPool) throws IOException {
         this.iInnerClassInfoIndex = paramDataInputStream.readUnsignedShort();
@@ -70,6 +70,8 @@ public class InnerClassInfo {
         }
         return bool;
     }
+
+    /*technical stuff*/
 
     @Override
     public String toString() {

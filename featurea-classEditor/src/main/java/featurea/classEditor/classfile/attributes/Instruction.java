@@ -40,6 +40,8 @@ public class Instruction {
         writeInstructionData(dos, constPool, iInstruction);
     }
 
+    /*private API*/
+
     private void writeInstructionData(DataOutputStream dos, ConstantPool constPool, int iInstruction) throws IOException {
         if (0xab == iInstruction) {
             for (int iIndex = 0; iIndex < iPaddingLength; iIndex++) {
@@ -376,6 +378,8 @@ public class Instruction {
                 break;
         }
     }
+
+    /*technical stuff*/
 
     @Override
     public String toString() {

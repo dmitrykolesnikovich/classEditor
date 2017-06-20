@@ -68,6 +68,8 @@ public final class Version {
         this.iMinorVersion = Integer.parseInt(paramString);
     }
 
+    /*technical stuff*/
+
     @Override
     public String toString() {
         String str = "Magic number: " + getMagicNumberString() + ", ";

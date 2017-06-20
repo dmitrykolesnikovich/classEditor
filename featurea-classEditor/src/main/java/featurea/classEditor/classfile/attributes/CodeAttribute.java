@@ -15,7 +15,7 @@ public class CodeAttribute extends Attribute {
     public Code code;
     public Vector vectExceptionTableEntries;
     public Attributes codeAttributes;
-    int iAttribLength;
+    private int iAttribLength;
 
     public CodeAttribute() {
         this.sName = "Code";
@@ -74,6 +74,8 @@ public class CodeAttribute extends Attribute {
         }
         this.vectExceptionTableEntries.removeElementAt(paramInt);
     }
+
+    /*technical stuff*/
 
     @Override
     public String toString() {

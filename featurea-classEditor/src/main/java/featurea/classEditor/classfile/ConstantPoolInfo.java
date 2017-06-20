@@ -361,6 +361,8 @@ public class ConstantPoolInfo {
         return this.iNumRefs;
     }
 
+    /*technical stuff*/
+
     @Override
     public String toString() {
         return tag2Column() + ": " + getExtraInfoString();

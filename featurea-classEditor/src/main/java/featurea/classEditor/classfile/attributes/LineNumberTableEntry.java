@@ -18,6 +18,7 @@ public class LineNumberTableEntry {
         paramDataOutputStream.writeShort(this.iStartPC);
         paramDataOutputStream.writeShort(this.iLineNum);
     }
+    /*technical stuff*/
 
     @Override
     public String toString() {

@@ -95,6 +95,8 @@ public class Interfaces {
         return iInterfacesCount;
     }
 
+    /*technical stuff*/
+
     @Override
     public String toString() {
         String sRet;

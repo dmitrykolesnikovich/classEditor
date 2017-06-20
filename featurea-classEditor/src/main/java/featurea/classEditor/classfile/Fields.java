@@ -6,8 +6,9 @@ import java.io.IOException;
 import java.util.Vector;
 
 public class Fields {
-    int iFieldsCount;
-    Vector fieldsVect;
+
+    private int iFieldsCount;
+    private Vector fieldsVect;
 
     public void read(DataInputStream paramDataInputStream, ConstantPool paramConstantPool) throws IOException {
         this.iFieldsCount = paramDataInputStream.readUnsignedShort();
@@ -60,6 +61,8 @@ public class Fields {
         this.fieldsVect.addElement(paramFieldInfo);
         this.iFieldsCount += 1;
     }
+
+    /*technical stuff*/
 
     @Override
     public String toString() {

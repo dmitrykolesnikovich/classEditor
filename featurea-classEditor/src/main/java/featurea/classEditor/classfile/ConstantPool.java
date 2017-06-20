@@ -107,6 +107,8 @@ public class ConstantPool {
         return bool;
     }
 
+    /*technical stuff*/
+
     @Override
     public String toString() {
         this.iConstantPoolCount = ((this.iNumPoolInfos = this.vectConstPool.size()) + 1);

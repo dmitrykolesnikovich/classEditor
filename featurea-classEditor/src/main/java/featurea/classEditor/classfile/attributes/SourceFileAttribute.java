@@ -11,7 +11,7 @@ import java.util.Vector;
 public class SourceFileAttribute extends Attribute {
 
     public ConstantPoolInfo cpSourceFile;
-    int iSourceFileIndex;
+    private int iSourceFileIndex;
 
     public SourceFileAttribute() {
         this.sName = "SourceFile";
@@ -40,6 +40,8 @@ public class SourceFileAttribute extends Attribute {
         }
         return true;
     }
+
+    /*technical stuff*/
 
     @Override
     public String toString() {

@@ -81,6 +81,8 @@ public class ClassFile {
         return bool;
     }
 
+    /*technical stuff*/
+
     @Override
     public String toString() {
         return "ClassEditor: " + this.classNames.getThisClassName();

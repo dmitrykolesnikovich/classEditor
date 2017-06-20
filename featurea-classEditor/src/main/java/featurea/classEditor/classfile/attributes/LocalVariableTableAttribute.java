@@ -63,6 +63,8 @@ public class LocalVariableTableAttribute extends Attribute {
         return true;
     }
 
+    /*technical stuff*/
+
     @Override
     public String toString() {
         int i = this.vectLocalVariableTable.size();

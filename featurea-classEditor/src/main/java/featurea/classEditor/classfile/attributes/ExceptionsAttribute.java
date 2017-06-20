@@ -84,9 +84,12 @@ public class ExceptionsAttribute extends Attribute {
         return bool;
     }
 
+    /*technical stuff*/
+
     @Override
     public String toString() {
         String str = "Attribute " + this.sName + ". Number=" + this.iNumExceptions;
         return str;
     }
+
 }

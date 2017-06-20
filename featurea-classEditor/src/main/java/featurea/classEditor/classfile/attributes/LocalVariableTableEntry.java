@@ -56,6 +56,8 @@ public class LocalVariableTableEntry {
         }
     }
 
+    /*technical suff*/
+
     @Override
     public String toString() {
         int i = null != this.cpName ? this.constPool.getIndexOf(this.cpName) : 0;

@@ -31,4 +31,9 @@ public class ClassFileTest {
         }
     }
 
+    @Test
+    public void test() {
+        System.out.println((int) 'Ѐ');
+    }
+
 }

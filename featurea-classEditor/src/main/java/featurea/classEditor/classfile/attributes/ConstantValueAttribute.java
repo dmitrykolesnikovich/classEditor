@@ -96,6 +96,8 @@ public class ConstantValueAttribute extends Attribute {
         this.sConstValue = paramString;
     }
 
+    /*technical stuff*/
+
     @Override
     public String toString() {
         return "Attribute " + this.sName + ". Type=" + this.sConstType + ". Value=" + this.sConstValue;

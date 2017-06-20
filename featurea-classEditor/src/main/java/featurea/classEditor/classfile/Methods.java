@@ -59,6 +59,9 @@ public class Methods {
         this.iMethodsCount += 1;
     }
 
+    /*technical stuff*/
+
+    @Override
     public String toString() {
         String str2 = System.getProperty("line.separator");
         this.iMethodsCount = this.methodsVect.size();

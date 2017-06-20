@@ -50,6 +50,8 @@ public class ExceptionTableEntry {
         }
     }
 
+    /*technical stuff*/
+
     @Override
     public String toString() {
         return "type=" + (null == this.cpCatchType ? "all" : Utils.convertClassStrToStr(this.cpCatchType.refUTF8.sUTFStr)) + " start=" + this.iStartPC + " end=" + this.iEndPC + " handler=" + this.iHandlerPC;

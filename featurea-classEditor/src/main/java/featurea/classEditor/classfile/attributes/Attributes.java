@@ -49,6 +49,8 @@ public class Attributes {
         return (Attribute) this.attribVect.elementAt(paramInt);
     }
 
+    /*technical stuff*/
+
     @Override
     public String toString() {
         this.iAttributesCount = this.attribVect.size();

@@ -33,6 +33,8 @@ public class UnknownAttribute extends Attribute {
         return true;
     }
 
+    /*technical stuff*/
+
     @Override
     public String toString() {
         return "Unrecognized Attribute. Length=" + this.iAttribLength;

@@ -80,6 +80,8 @@ public class FieldInfo {
         return bool;
     }
 
+    /*technical stuff*/
+
     @Override
     public String toString() {
         String str = "FieldInfo:" + this.accessFlags.toString() + " Name: " + this.cpName + " Desc: " + this.cpDescriptor + " Attribs: " + this.attributes.toString();

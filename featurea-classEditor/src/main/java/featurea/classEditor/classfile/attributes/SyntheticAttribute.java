@@ -14,14 +14,12 @@ public class SyntheticAttribute extends Attribute {
     }
 
     @Override
-    public void readAttributeDetails(DataInputStream paramDataInputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void readAttributeDetails(DataInputStream paramDataInputStream, ConstantPool paramConstantPool) throws IOException {
         this.iAttribLength = paramDataInputStream.readInt();
     }
 
     @Override
-    public void writeAttributeDetails(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void writeAttributeDetails(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool) throws IOException {
         paramDataOutputStream.writeInt(this.iAttribLength);
     }
 
@@ -34,6 +32,8 @@ public class SyntheticAttribute extends Attribute {
         }
         return bool;
     }
+
+    /*technical stuff*/
 
     @Override
     public String toString() {

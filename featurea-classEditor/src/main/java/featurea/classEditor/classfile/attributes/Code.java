@@ -28,8 +28,7 @@ public class Code {
         this.iCodeIndex = 0;
     }
 
-    public void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool) throws IOException {
         paramDataOutputStream.writeInt(this.iCodeLength);
         for (int i = 0; i < this.vectCode.size(); i++) {
             Instruction localInstruction = (Instruction) this.vectCode.elementAt(i);

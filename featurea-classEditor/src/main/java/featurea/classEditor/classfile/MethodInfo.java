@@ -66,20 +66,22 @@ public class MethodInfo {
         this.cpDescriptor.sUTFStr = str;
     }
 
-    public boolean verify(String paramString, Vector paramVector) {
+    public boolean verify(String paramString, Vector result) {
         boolean bool = true;
-        bool = (this.accessFlags.verify(paramString, paramVector, false)) && (bool);
-        bool = (this.attributes.verify(paramString, paramVector)) && (bool);
+        bool = (this.accessFlags.verify(paramString, result, false)) && (bool);
+        bool = (this.attributes.verify(paramString, result)) && (bool);
         if ((1 != this.cpName.iTag) || (this.cpName.sUTFStr.length() == 0)) {
-            paramVector.addElement(paramString + ": Method name must point to a constant UTF8 and can not be empty.");
+            result.addElement(paramString + ": Method name must point to a constant UTF8 and can not be empty.");
             bool = false;
         }
         if ((1 != this.cpDescriptor.iTag) || (this.cpDescriptor.sUTFStr.length() == 0)) {
-            paramVector.addElement(paramString + ": Method descriptor must point to a constant UTF8 and can not be empty.");
+            result.addElement(paramString + ": Method descriptor must point to a constant UTF8 and can not be empty.");
             bool = false;
         }
         return bool;
     }
+
+    /*technical stuff*/
 
     @Override
     public String toString() {

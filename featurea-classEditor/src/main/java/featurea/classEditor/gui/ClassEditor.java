@@ -29,6 +29,7 @@ import java.util.Properties;
 import java.util.Vector;
 
 public class ClassEditor extends JFrame {
+
     private static int NUM_FILES_IN_HISTORY = 5;
     private GeneralPropPane TabPaneGeneralProp;
     private ConstantPoolPropPane TabPaneConstPool;

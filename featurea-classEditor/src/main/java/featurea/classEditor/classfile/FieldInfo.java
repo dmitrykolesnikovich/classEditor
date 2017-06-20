@@ -28,8 +28,7 @@ public class FieldInfo {
         addReference();
     }
 
-    void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool) throws IOException {
         this.accessFlags.write(paramDataOutputStream);
         this.iNameIndex = paramConstantPool.getIndexOf(this.cpName);
         paramDataOutputStream.writeShort(this.iNameIndex);

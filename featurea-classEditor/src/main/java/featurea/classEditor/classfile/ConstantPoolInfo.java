@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Vector;
 
 public class ConstantPoolInfo {
+
     public static final int CONSTANT_Class = 7;
     public static final int CONSTANT_Fieldref = 9;
     public static final int CONSTANT_Methodref = 10;
@@ -32,21 +33,21 @@ public class ConstantPoolInfo {
     public ConstantPoolInfo refExtraUTF8;
     public ConstantPoolInfo refClass;
     public ConstantPoolInfo refNameAndType;
-    int iNumRefs;
-    ConstantPool constPool;
+    public int iNumRefs;
+    public ConstantPool constPool;
 
-    public boolean verify(String paramString, Vector paramVector) {
+    public boolean verify(String paramString, Vector result) {
         boolean bool = true;
         switch (this.iTag) {
             case 7:
                 if ((null == this.refUTF8) || (1 != this.refUTF8.iTag)) {
-                    paramVector.addElement(paramString + ": Constant class should point to a UTF8 pool item.");
+                    result.addElement(paramString + ": Constant class should point to a UTF8 pool item.");
                     bool = false;
                 }
                 break;
             case 8:
                 if ((null == this.refUTF8) || (1 != this.refUTF8.iTag)) {
-                    paramVector.addElement(paramString + ": Constant string should point to a UTF8 pool item.");
+                    result.addElement(paramString + ": Constant string should point to a UTF8 pool item.");
                     bool = false;
                 }
                 break;
@@ -54,21 +55,21 @@ public class ConstantPoolInfo {
             case 10:
             case 11:
                 if ((null == this.refClass) || (7 != this.refClass.iTag)) {
-                    paramVector.addElement(paramString + ": Class index of constant field/method/interfacemethod ref should point to a Class pool item.");
+                    result.addElement(paramString + ": Class index of constant field/method/interfacemethod ref should point to a Class pool item.");
                     bool = false;
                 }
                 if ((null == this.refNameAndType) || (12 != this.refNameAndType.iTag)) {
-                    paramVector.addElement(paramString + ": NameAndType index of constant field/method/interfacemethod ref should point to a NameAndType pool item.");
+                    result.addElement(paramString + ": NameAndType index of constant field/method/interfacemethod ref should point to a NameAndType pool item.");
                     bool = false;
                 }
                 break;
             case 12:
                 if ((null == this.refUTF8) || (1 != this.refUTF8.iTag)) {
-                    paramVector.addElement(paramString + ": Name index of NameAndType ref should point to a UTF8 pool item.");
+                    result.addElement(paramString + ": Name index of NameAndType ref should point to a UTF8 pool item.");
                     bool = false;
                 }
                 if ((null == this.refExtraUTF8) || (1 != this.refExtraUTF8.iTag)) {
-                    paramVector.addElement(paramString + ": Descriptor index of NameAndType ref should point to a UTF8 pool item.");
+                    result.addElement(paramString + ": Descriptor index of NameAndType ref should point to a UTF8 pool item.");
                     bool = false;
                 }
                 break;
@@ -80,14 +81,13 @@ public class ConstantPoolInfo {
                 break;
             case 2:
             default:
-                paramVector.addElement(paramString + ": Constant pool type not recognized.");
+                result.addElement(paramString + ": Constant pool type not recognized.");
                 bool = false;
         }
         return bool;
     }
 
-    void read(DataInputStream paramDataInputStream)
-            throws IOException {
+    public void read(DataInputStream paramDataInputStream) throws IOException {
         this.iTag = paramDataInputStream.readByte();
         switch (this.iTag) {
             case 7:
@@ -127,8 +127,7 @@ public class ConstantPoolInfo {
         }
     }
 
-    void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool) throws IOException {
         if (null != paramConstantPool) {
             this.constPool = paramConstantPool;
         }
@@ -292,10 +291,6 @@ public class ConstantPoolInfo {
         return str;
     }
 
-    public String toString() {
-        return tag2Column() + ": " + getExtraInfoString();
-    }
-
     public String getExtraInfoString() {
         String str = "";
         switch (this.iTag) {
@@ -365,10 +360,10 @@ public class ConstantPoolInfo {
     public int getRef() {
         return this.iNumRefs;
     }
+
+    @Override
+    public String toString() {
+        return tag2Column() + ": " + getExtraInfoString();
+    }
+
 }
-
-
-/* Location:              /home/dmitrykolesnikovich/ce2.23/ce.jar!/classfile/ConstantPoolInfo.class
- * Java compiler version: 2 (46.0)
- * JD-Core Version:       0.7.1
- */

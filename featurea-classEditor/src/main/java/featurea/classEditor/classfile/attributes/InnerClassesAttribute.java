@@ -7,8 +7,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Vector;
 
-public class InnerClassesAttribute
-        extends Attribute {
+public class InnerClassesAttribute extends Attribute {
+
     int iNumberOfClasses;
     Vector vectInnerClassInfo;
 
@@ -16,7 +16,8 @@ public class InnerClassesAttribute
         this.sName = "InnerClasses";
     }
 
-    void readAttributeDetails(DataInputStream paramDataInputStream, ConstantPool paramConstantPool)
+    @Override
+    public void readAttributeDetails(DataInputStream paramDataInputStream, ConstantPool paramConstantPool)
             throws IOException {
         this.iAttribLength = paramDataInputStream.readInt();
         this.vectInnerClassInfo = null;
@@ -30,7 +31,8 @@ public class InnerClassesAttribute
         }
     }
 
-    void writeAttributeDetails(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool)
+    @Override
+    public void writeAttributeDetails(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool)
             throws IOException {
         paramDataOutputStream.writeInt(this.iAttribLength);
         paramDataOutputStream.writeInt(this.iNumberOfClasses);
@@ -48,12 +50,13 @@ public class InnerClassesAttribute
         return (InnerClassInfo) this.vectInnerClassInfo.elementAt(paramInt);
     }
 
-    public boolean verify(String paramString, Vector paramVector) {
+    @Override
+    public boolean verify(String paramString, Vector result) {
         boolean bool = true;
         if (this.iNumberOfClasses > 0) {
             for (int i = 0; i < this.iNumberOfClasses; i++) {
                 InnerClassInfo localInnerClassInfo = (InnerClassInfo) this.vectInnerClassInfo.elementAt(i);
-                if (false == localInnerClassInfo.verify(paramString, paramVector)) {
+                if (false == localInnerClassInfo.verify(paramString, result)) {
                     bool = false;
                 }
             }
@@ -61,14 +64,10 @@ public class InnerClassesAttribute
         return bool;
     }
 
+    @Override
     public String toString() {
         String str = "Attribute " + this.sName + ". Number=" + this.iNumberOfClasses;
         return str;
     }
+
 }
-
-
-/* Location:              /home/dmitrykolesnikovich/ce2.23/ce.jar!/classfile/attributes/InnerClassesAttribute.class
- * Java compiler version: 2 (46.0)
- * JD-Core Version:       0.7.1
- */

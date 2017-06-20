@@ -9,11 +9,11 @@ import java.io.IOException;
 import java.util.Vector;
 
 public class Attributes {
+
     public int iAttributesCount = 0;
     public Vector attribVect = new Vector();
 
-    public void read(DataInputStream paramDataInputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void read(DataInputStream paramDataInputStream, ConstantPool paramConstantPool) throws IOException {
         this.iAttributesCount = paramDataInputStream.readUnsignedShort();
         this.attribVect = new Vector(this.iAttributesCount);
         for (int i = 0; i < this.iAttributesCount; i++) {
@@ -22,24 +22,13 @@ public class Attributes {
         }
     }
 
-    public void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool) throws IOException {
         this.iAttributesCount = this.attribVect.size();
         paramDataOutputStream.writeShort(this.iAttributesCount);
         for (int i = 0; i < this.iAttributesCount; i++) {
             Attribute localAttribute = (Attribute) this.attribVect.elementAt(i);
             localAttribute.write(paramDataOutputStream, paramConstantPool);
         }
-    }
-
-    public String toString() {
-        this.iAttributesCount = this.attribVect.size();
-        String str = "Attributes count: " + this.iAttributesCount + Utils.sNewLine;
-        int i = 0;
-        while (i < this.iAttributesCount) {
-            str = str + this.attribVect.elementAt(i++).toString() + Utils.sNewLine;
-        }
-        return str;
     }
 
     public boolean verify(String paramString, Vector paramVector) {
@@ -59,10 +48,16 @@ public class Attributes {
     public Attribute getAttribute(int paramInt) {
         return (Attribute) this.attribVect.elementAt(paramInt);
     }
+
+    @Override
+    public String toString() {
+        this.iAttributesCount = this.attribVect.size();
+        String str = "Attributes count: " + this.iAttributesCount + Utils.sNewLine;
+        int i = 0;
+        while (i < this.iAttributesCount) {
+            str = str + this.attribVect.elementAt(i++).toString() + Utils.sNewLine;
+        }
+        return str;
+    }
+
 }
-
-
-/* Location:              /home/dmitrykolesnikovich/ce2.23/ce.jar!/classfile/attributes/Attributes.class
- * Java compiler version: 2 (46.0)
- * JD-Core Version:       0.7.1
- */

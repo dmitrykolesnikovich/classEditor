@@ -9,14 +9,14 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class ExceptionTableEntry {
+
     public int iStartPC;
     public int iEndPC;
     public int iHandlerPC;
     public int iCatchType;
     public ConstantPoolInfo cpCatchType;
 
-    void read(DataInputStream paramDataInputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void read(DataInputStream paramDataInputStream, ConstantPool paramConstantPool) throws IOException {
         this.iStartPC = paramDataInputStream.readUnsignedShort();
         this.iEndPC = paramDataInputStream.readUnsignedShort();
         this.iHandlerPC = paramDataInputStream.readUnsignedShort();
@@ -27,8 +27,7 @@ public class ExceptionTableEntry {
         }
     }
 
-    void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool) throws IOException {
         paramDataOutputStream.writeShort(this.iStartPC);
         paramDataOutputStream.writeShort(this.iEndPC);
         paramDataOutputStream.writeShort(this.iHandlerPC);
@@ -51,13 +50,9 @@ public class ExceptionTableEntry {
         }
     }
 
+    @Override
     public String toString() {
         return "type=" + (null == this.cpCatchType ? "all" : Utils.convertClassStrToStr(this.cpCatchType.refUTF8.sUTFStr)) + " start=" + this.iStartPC + " end=" + this.iEndPC + " handler=" + this.iHandlerPC;
     }
+
 }
-
-
-/* Location:              /home/dmitrykolesnikovich/ce2.23/ce.jar!/classfile/attributes/ExceptionTableEntry.class
- * Java compiler version: 2 (46.0)
- * JD-Core Version:       0.7.1
- */

@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.util.Vector;
 
 public class Methods {
-    int iMethodsCount;
-    Vector methodsVect;
 
-    void read(DataInputStream paramDataInputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    private int iMethodsCount;
+    private Vector methodsVect;
+
+    public void read(DataInputStream paramDataInputStream, ConstantPool paramConstantPool) throws IOException {
         this.iMethodsCount = paramDataInputStream.readUnsignedShort();
         this.methodsVect = new Vector(this.iMethodsCount);
         for (int i = 0; i < this.iMethodsCount; i++) {
@@ -20,8 +20,7 @@ public class Methods {
         }
     }
 
-    void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool) throws IOException {
         this.iMethodsCount = this.methodsVect.size();
         paramDataOutputStream.writeShort(this.iMethodsCount);
         for (int i = 0; i < this.iMethodsCount; i++) {
@@ -37,17 +36,6 @@ public class Methods {
             bool = (localMethodInfo.verify("Method " + (i + 1) + "(" + localMethodInfo.cpName.sUTFStr + ")", paramVector)) && (bool);
         }
         return bool;
-    }
-
-    public String toString() {
-        String str2 = System.getProperty("line.separator");
-        this.iMethodsCount = this.methodsVect.size();
-        String str1 = "Methods count: " + this.iMethodsCount + str2;
-        int i = 0;
-        while (i < this.iMethodsCount) {
-            str1 = str1 + this.methodsVect.elementAt(i++).toString() + str2;
-        }
-        return str1;
     }
 
     public int getMethodsCount() {
@@ -70,10 +58,16 @@ public class Methods {
         this.methodsVect.addElement(paramMethodInfo);
         this.iMethodsCount += 1;
     }
+
+    public String toString() {
+        String str2 = System.getProperty("line.separator");
+        this.iMethodsCount = this.methodsVect.size();
+        String str1 = "Methods count: " + this.iMethodsCount + str2;
+        int i = 0;
+        while (i < this.iMethodsCount) {
+            str1 = str1 + this.methodsVect.elementAt(i++).toString() + str2;
+        }
+        return str1;
+    }
+
 }
-
-
-/* Location:              /home/dmitrykolesnikovich/ce2.23/ce.jar!/classfile/Methods.class
- * Java compiler version: 2 (46.0)
- * JD-Core Version:       0.7.1
- */

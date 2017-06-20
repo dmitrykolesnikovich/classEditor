@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.util.Vector;
 
 public class ClassNames {
+
     public ConstantPoolInfo cpThisClass;
     public ConstantPoolInfo cpSuperClass;
-    int iThisClass;
-    int iSuperClass;
+    private int iThisClass;
+    private int iSuperClass;
 
-    void read(DataInputStream paramDataInputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void read(DataInputStream paramDataInputStream, ConstantPool paramConstantPool) throws IOException {
         this.iThisClass = paramDataInputStream.readUnsignedShort();
         this.iSuperClass = paramDataInputStream.readUnsignedShort();
         this.cpThisClass = paramConstantPool.getPoolInfo(this.iThisClass);
@@ -21,31 +21,24 @@ public class ClassNames {
         this.cpSuperClass.addRef();
     }
 
-    void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool) throws IOException {
         this.iThisClass = paramConstantPool.getIndexOf(this.cpThisClass);
         this.iSuperClass = paramConstantPool.getIndexOf(this.cpSuperClass);
         paramDataOutputStream.writeShort(this.iThisClass);
         paramDataOutputStream.writeShort(this.iSuperClass);
     }
 
-    public boolean verify(Vector paramVector) {
+    public boolean verify(Vector result) {
         boolean bool = true;
         if ((7 != this.cpThisClass.iTag) || (7 != this.cpSuperClass.iTag)) {
-            paramVector.addElement("ClassName and SuperClassName indexes should point to constant pool of type Class.");
+            result.addElement("ClassName and SuperClassName indexes should point to constant pool of type Class.");
             bool = false;
         }
         if ((0 == this.cpThisClass.refUTF8.sUTFStr.length()) || (0 == this.cpSuperClass.refUTF8.sUTFStr.length())) {
-            paramVector.addElement("Class and SuperClass names can not be empty.");
+            result.addElement("Class and SuperClass names can not be empty.");
             bool = false;
         }
         return bool;
-    }
-
-    public String toString() {
-        String str = "This class: " + this.cpThisClass + ", ";
-        str = str + "Super class: " + this.cpSuperClass;
-        return str;
     }
 
     public String getThisClassName() {
@@ -63,10 +56,12 @@ public class ClassNames {
     public void setSuperClassName(String paramString) {
         this.cpSuperClass.refUTF8.sUTFStr = Utils.convertStrToClassStr(paramString);
     }
+
+    @Override
+    public String toString() {
+        String str = "This class: " + this.cpThisClass + ", ";
+        str = str + "Super class: " + this.cpSuperClass;
+        return str;
+    }
+
 }
-
-
-/* Location:              /home/dmitrykolesnikovich/ce2.23/ce.jar!/classfile/ClassNames.class
- * Java compiler version: 2 (46.0)
- * JD-Core Version:       0.7.1
- */

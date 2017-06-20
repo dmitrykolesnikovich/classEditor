@@ -3,8 +3,13 @@ package featurea.classEditor.classfile;
 import java.util.Stack;
 
 public final class Utils {
+
     public static String sNewLine = System.getProperty("line.separator");
     public static String sUnderLine = "----------------------------------------------------------------------";
+
+    private Utils() {
+        // no op
+    }
 
     public static String convertStrToClassStr(String paramString) {
         return paramString.replace('.', '/');
@@ -200,9 +205,3 @@ public final class Utils {
         return true;
     }
 }
-
-
-/* Location:              /home/dmitrykolesnikovich/ce2.23/ce.jar!/classfile/Utils.class
- * Java compiler version: 2 (46.0)
- * JD-Core Version:       0.7.1
- */

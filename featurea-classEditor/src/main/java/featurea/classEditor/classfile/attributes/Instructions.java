@@ -1,6 +1,7 @@
 package featurea.classEditor.classfile.attributes;
 
 public final class Instructions {
+
     public static String[] sInstrCodes = new String['Ѐ'];
 
     static {
@@ -207,9 +208,3 @@ public final class Instructions {
         sInstrCodes['Ä'] = "wide";
     }
 }
-
-
-/* Location:              /home/dmitrykolesnikovich/ce2.23/ce.jar!/classfile/attributes/Instructions.class
- * Java compiler version: 2 (46.0)
- * JD-Core Version:       0.7.1
- */

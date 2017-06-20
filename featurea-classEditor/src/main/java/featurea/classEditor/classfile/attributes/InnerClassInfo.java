@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Vector;
 
 public class InnerClassInfo {
+
     public AccessFlags accFlags = new AccessFlags();
     public ConstantPoolInfo cpInnerClass;
     public ConstantPoolInfo cpOuterClass;
@@ -19,8 +20,7 @@ public class InnerClassInfo {
     int iOuterClassInfoIndex;
     int iInnerNameIndex;
 
-    void read(DataInputStream paramDataInputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void read(DataInputStream paramDataInputStream, ConstantPool paramConstantPool) throws IOException {
         this.iInnerClassInfoIndex = paramDataInputStream.readUnsignedShort();
         this.iOuterClassInfoIndex = paramDataInputStream.readUnsignedShort();
         this.iInnerNameIndex = paramDataInputStream.readUnsignedShort();
@@ -37,8 +37,7 @@ public class InnerClassInfo {
         }
     }
 
-    void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool) throws IOException {
         this.iInnerClassInfoIndex = (this.iOuterClassInfoIndex = this.iInnerNameIndex = 0);
         if (null != this.cpInnerClass) {
             this.iInnerClassInfoIndex = paramConstantPool.getIndexOf(this.cpInnerClass);
@@ -55,23 +54,24 @@ public class InnerClassInfo {
         this.accFlags.write(paramDataOutputStream);
     }
 
-    boolean verify(String paramString, Vector paramVector) {
+    public boolean verify(String paramString, Vector result) {
         boolean bool = true;
         if ((null != this.cpInnerClass) && (7 != this.cpInnerClass.iTag)) {
-            paramVector.addElement(": InnerClassInfoIndex must point to a constant pool of type Class.");
+            result.addElement(": InnerClassInfoIndex must point to a constant pool of type Class.");
             bool = false;
         }
         if ((null != this.cpOuterClass) && (7 != this.cpOuterClass.iTag)) {
-            paramVector.addElement(": OuterClassInfoIndex must point to a constant pool of type Class.");
+            result.addElement(": OuterClassInfoIndex must point to a constant pool of type Class.");
             bool = false;
         }
         if ((null != this.cpInnerName) && (1 != this.cpInnerName.iTag)) {
-            paramVector.addElement(": InnerNameIndex must point to a constant pool of type UTF8.");
+            result.addElement(": InnerNameIndex must point to a constant pool of type UTF8.");
             bool = false;
         }
         return bool;
     }
 
+    @Override
     public String toString() {
         String str = "";
         if (null != this.cpInnerClass) {
@@ -86,10 +86,5 @@ public class InnerClassInfo {
         str = str + this.accFlags.toString();
         return str;
     }
+
 }
-
-
-/* Location:              /home/dmitrykolesnikovich/ce2.23/ce.jar!/classfile/attributes/InnerClassInfo.class
- * Java compiler version: 2 (46.0)
- * JD-Core Version:       0.7.1
- */

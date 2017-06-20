@@ -7,16 +7,16 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Vector;
 
-public class LineNumberTableAttribute
-        extends Attribute {
+public class LineNumberTableAttribute extends Attribute {
+
     public Vector vectEntries;
 
     public LineNumberTableAttribute() {
         this.sName = "LineNumberTable";
     }
 
-    void readAttributeDetails(DataInputStream paramDataInputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    @Override
+    public void readAttributeDetails(DataInputStream paramDataInputStream, ConstantPool paramConstantPool) throws IOException {
         this.iAttribLength = paramDataInputStream.readInt();
         this.vectEntries = new Vector();
         int i;
@@ -29,7 +29,8 @@ public class LineNumberTableAttribute
         }
     }
 
-    void writeAttributeDetails(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool)
+    @Override
+    public void writeAttributeDetails(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool)
             throws IOException {
         paramDataOutputStream.writeInt(this.iAttribLength);
         int i = this.vectEntries.size();
@@ -49,17 +50,14 @@ public class LineNumberTableAttribute
         this.vectEntries.removeElementAt(paramInt);
     }
 
+    @Override
+    public boolean verify(String paramString, Vector result) {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "Attribute " + this.sName + ". Length=" + this.iAttribLength + ". TableLength=" + this.vectEntries.size();
     }
 
-    public boolean verify(String paramString, Vector paramVector) {
-        return true;
-    }
 }
-
-
-/* Location:              /home/dmitrykolesnikovich/ce2.23/ce.jar!/classfile/attributes/LineNumberTableAttribute.class
- * Java compiler version: 2 (46.0)
- * JD-Core Version:       0.7.1
- */

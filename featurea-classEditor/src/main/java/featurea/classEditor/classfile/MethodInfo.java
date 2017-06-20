@@ -8,16 +8,16 @@ import java.io.IOException;
 import java.util.Vector;
 
 public class MethodInfo {
+
     public AccessFlags accessFlags;
     public Attributes attributes;
     public ConstantPoolInfo cpName;
     public ConstantPoolInfo cpDescriptor;
-    int iNameIndex;
-    int iDescriptorIndex;
-    ConstantPool constPool;
+    private int iNameIndex;
+    private int iDescriptorIndex;
+    private ConstantPool constPool;
 
-    void read(DataInputStream paramDataInputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void read(DataInputStream paramDataInputStream, ConstantPool paramConstantPool) throws IOException {
         this.constPool = paramConstantPool;
         this.accessFlags = new AccessFlags();
         this.accessFlags.read(paramDataInputStream);
@@ -30,8 +30,7 @@ public class MethodInfo {
         addReferences();
     }
 
-    void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool) throws IOException {
         this.accessFlags.write(paramDataOutputStream);
         this.iNameIndex = paramConstantPool.getIndexOf(this.cpName);
         paramDataOutputStream.writeShort(this.iNameIndex);
@@ -67,11 +66,6 @@ public class MethodInfo {
         this.cpDescriptor.sUTFStr = str;
     }
 
-    public String toString() {
-        String str = "MethodInfo:" + this.accessFlags.toString() + " Name: " + this.cpName.sUTFStr + " Desc: " + this.cpDescriptor.sUTFStr + " Attribs: " + this.attributes.toString();
-        return str;
-    }
-
     public boolean verify(String paramString, Vector paramVector) {
         boolean bool = true;
         bool = (this.accessFlags.verify(paramString, paramVector, false)) && (bool);
@@ -86,10 +80,11 @@ public class MethodInfo {
         }
         return bool;
     }
+
+    @Override
+    public String toString() {
+        String str = "MethodInfo:" + this.accessFlags.toString() + " Name: " + this.cpName.sUTFStr + " Desc: " + this.cpDescriptor.sUTFStr + " Attribs: " + this.attributes.toString();
+        return str;
+    }
+
 }
-
-
-/* Location:              /home/dmitrykolesnikovich/ce2.23/ce.jar!/classfile/MethodInfo.class
- * Java compiler version: 2 (46.0)
- * JD-Core Version:       0.7.1
- */

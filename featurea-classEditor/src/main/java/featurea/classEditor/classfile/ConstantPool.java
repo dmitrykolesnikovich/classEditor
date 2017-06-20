@@ -6,12 +6,12 @@ import java.io.IOException;
 import java.util.Vector;
 
 public class ConstantPool {
-    int iConstantPoolCount;
-    int iNumPoolInfos;
-    Vector vectConstPool;
 
-    void read(DataInputStream paramDataInputStream)
-            throws IOException {
+    private int iConstantPoolCount;
+    private int iNumPoolInfos;
+    private Vector vectConstPool;
+
+    public void read(DataInputStream paramDataInputStream) throws IOException {
         this.iConstantPoolCount = paramDataInputStream.readUnsignedShort();
         this.iNumPoolInfos = (this.iConstantPoolCount - 1);
         this.vectConstPool = new Vector(this.iNumPoolInfos);
@@ -26,8 +26,7 @@ public class ConstantPool {
         }
     }
 
-    void write(DataOutputStream paramDataOutputStream)
-            throws IOException {
+    public void write(DataOutputStream paramDataOutputStream) throws IOException {
         this.iConstantPoolCount = ((this.iNumPoolInfos = this.vectConstPool.size()) + 1);
         paramDataOutputStream.writeShort(this.iConstantPoolCount);
         for (int i = 0; i < this.iNumPoolInfos; i++) {
@@ -39,7 +38,7 @@ public class ConstantPool {
         }
     }
 
-    void resolveReferences() {
+    public void resolveReferences() {
         this.iConstantPoolCount = ((this.iNumPoolInfos = this.vectConstPool.size()) + 1);
         for (int i = 0; i < this.iNumPoolInfos; i++) {
             ConstantPoolInfo localConstantPoolInfo = (ConstantPoolInfo) this.vectConstPool.elementAt(i);
@@ -50,7 +49,7 @@ public class ConstantPool {
         }
     }
 
-    void removeUnreferenced() {
+    public void removeUnreferenced() {
         Vector localVector = new Vector(this.iConstantPoolCount / 2);
         this.iConstantPoolCount = ((this.iNumPoolInfos = this.vectConstPool.size()) + 1);
         for (int i = 0; i < this.iNumPoolInfos; i++) {
@@ -82,12 +81,6 @@ public class ConstantPool {
         this.iConstantPoolCount = ((this.iNumPoolInfos = this.vectConstPool.size()) + 1);
     }
 
-    public String toString() {
-        this.iConstantPoolCount = ((this.iNumPoolInfos = this.vectConstPool.size()) + 1);
-        String str = "Constant pool. Count: " + this.iConstantPoolCount;
-        return str;
-    }
-
     public ConstantPoolInfo getPoolInfo(int paramInt) {
         return (ConstantPoolInfo) this.vectConstPool.elementAt(paramInt - 1);
     }
@@ -101,22 +94,24 @@ public class ConstantPool {
         return this.iNumPoolInfos;
     }
 
-    public boolean verify(Vector paramVector) {
+    public boolean verify(Vector result) {
         boolean bool = true;
         if (0 == getPoolInfoCount()) {
-            paramVector.addElement("Constant pool count must be greater than 0.");
+            result.addElement("Constant pool count must be greater than 0.");
             bool = false;
         }
         for (int i = 0; i < this.iNumPoolInfos; i++) {
             ConstantPoolInfo localConstantPoolInfo = (ConstantPoolInfo) this.vectConstPool.elementAt(i);
-            bool = (localConstantPoolInfo.verify("ConstPool " + (i + 1), paramVector)) && (bool);
+            bool = (localConstantPoolInfo.verify("ConstPool " + (i + 1), result)) && (bool);
         }
         return bool;
     }
+
+    @Override
+    public String toString() {
+        this.iConstantPoolCount = ((this.iNumPoolInfos = this.vectConstPool.size()) + 1);
+        String str = "Constant pool. Count: " + this.iConstantPoolCount;
+        return str;
+    }
+
 }
-
-
-/* Location:              /home/dmitrykolesnikovich/ce2.23/ce.jar!/classfile/ConstantPool.class
- * Java compiler version: 2 (46.0)
- * JD-Core Version:       0.7.1
- */

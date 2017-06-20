@@ -7,8 +7,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Vector;
 
-public class CodeAttribute
-        extends Attribute {
+public class CodeAttribute extends Attribute {
+
     public static final String NAME = "Code";
     public int iMaxStack;
     public int iMaxLocals;
@@ -21,8 +21,8 @@ public class CodeAttribute
         this.sName = "Code";
     }
 
-    void readAttributeDetails(DataInputStream paramDataInputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    @Override
+    public void readAttributeDetails(DataInputStream paramDataInputStream, ConstantPool paramConstantPool) throws IOException {
         this.iAttribLength = paramDataInputStream.readInt();
         this.iMaxStack = paramDataInputStream.readUnsignedShort();
         this.iMaxLocals = paramDataInputStream.readUnsignedShort();
@@ -39,8 +39,8 @@ public class CodeAttribute
         this.codeAttributes.read(paramDataInputStream, paramConstantPool);
     }
 
-    void writeAttributeDetails(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    @Override
+    public void writeAttributeDetails(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool) throws IOException {
         paramDataOutputStream.writeInt(this.iAttribLength);
         paramDataOutputStream.writeShort(this.iMaxStack);
         paramDataOutputStream.writeShort(this.iMaxLocals);
@@ -54,12 +54,9 @@ public class CodeAttribute
         this.codeAttributes.write(paramDataOutputStream, paramConstantPool);
     }
 
-    public boolean verify(String paramString, Vector paramVector) {
+    @Override
+    public boolean verify(String paramString, Vector result) {
         return true;
-    }
-
-    public String toString() {
-        return "Attribute " + this.sName + ". Length=" + this.iAttribLength;
     }
 
     public void addNewExceptionTableEntry() {
@@ -77,10 +74,10 @@ public class CodeAttribute
         }
         this.vectExceptionTableEntries.removeElementAt(paramInt);
     }
+
+    @Override
+    public String toString() {
+        return "Attribute " + this.sName + ". Length=" + this.iAttribLength;
+    }
+
 }
-
-
-/* Location:              /home/dmitrykolesnikovich/ce2.23/ce.jar!/classfile/attributes/CodeAttribute.class
- * Java compiler version: 2 (46.0)
- * JD-Core Version:       0.7.1
- */

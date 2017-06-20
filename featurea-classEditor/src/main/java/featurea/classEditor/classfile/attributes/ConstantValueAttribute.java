@@ -8,20 +8,20 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Vector;
 
-public class ConstantValueAttribute
-        extends Attribute {
+public class ConstantValueAttribute extends Attribute {
+
     public ConstantPoolInfo cpConstant;
     public String sConstType;
     public String sConstValue;
-    int iConstValueIndex;
-    ConstantPool constPool;
+    private int iConstValueIndex;
+    private ConstantPool constPool;
 
     public ConstantValueAttribute() {
         this.sName = "ConstantValue";
     }
 
-    void readAttributeDetails(DataInputStream paramDataInputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    @Override
+    public void readAttributeDetails(DataInputStream paramDataInputStream, ConstantPool paramConstantPool) throws IOException {
         this.constPool = paramConstantPool;
         this.iAttribLength = paramDataInputStream.readInt();
         this.iConstValueIndex = paramDataInputStream.readUnsignedShort();
@@ -54,7 +54,8 @@ public class ConstantValueAttribute
         }
     }
 
-    public boolean verify(String paramString, Vector paramVector) {
+    @Override
+    public boolean verify(String paramString, Vector result) {
         switch (this.cpConstant.iTag) {
             case 3:
             case 4:
@@ -63,20 +64,16 @@ public class ConstantValueAttribute
             case 8:
                 return true;
         }
-        paramVector.addElement(": Must point to a String, Integer, Float, Long or Double pool type.");
+        result.addElement(": Must point to a String, Integer, Float, Long or Double pool type.");
         return false;
     }
 
-    void writeAttributeDetails(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    @Override
+    public void writeAttributeDetails(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool) throws IOException {
         this.constPool = paramConstantPool;
         paramDataOutputStream.writeInt(this.iAttribLength);
         this.iConstValueIndex = this.constPool.getIndexOf(this.cpConstant);
         paramDataOutputStream.writeShort(this.iConstValueIndex);
-    }
-
-    public String toString() {
-        return "Attribute " + this.sName + ". Type=" + this.sConstType + ". Value=" + this.sConstValue;
     }
 
     public void setConstantValue(String paramString) {
@@ -98,10 +95,10 @@ public class ConstantValueAttribute
         }
         this.sConstValue = paramString;
     }
+
+    @Override
+    public String toString() {
+        return "Attribute " + this.sName + ". Type=" + this.sConstType + ". Value=" + this.sConstValue;
+    }
+
 }
-
-
-/* Location:              /home/dmitrykolesnikovich/ce2.23/ce.jar!/classfile/attributes/ConstantValueAttribute.class
- * Java compiler version: 2 (46.0)
- * JD-Core Version:       0.7.1
- */

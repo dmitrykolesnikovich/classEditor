@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.Vector;
 
 public class FieldInfo {
+
     public AccessFlags accessFlags;
     public int iNameIndex;
     public int iDescriptorIndex;
@@ -15,8 +16,7 @@ public class FieldInfo {
     public ConstantPoolInfo cpName;
     public ConstantPoolInfo cpDescriptor;
 
-    void read(DataInputStream paramDataInputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void read(DataInputStream paramDataInputStream, ConstantPool paramConstantPool) throws IOException {
         this.accessFlags = new AccessFlags();
         this.accessFlags.read(paramDataInputStream);
         this.iNameIndex = paramDataInputStream.readUnsignedShort();
@@ -48,11 +48,6 @@ public class FieldInfo {
         this.cpDescriptor.addRef();
     }
 
-    public String toString() {
-        String str = "FieldInfo:" + this.accessFlags.toString() + " Name: " + this.cpName + " Desc: " + this.cpDescriptor + " Attribs: " + this.attributes.toString();
-        return str;
-    }
-
     public String getFieldName() {
         return this.cpName.sUTFStr;
     }
@@ -71,24 +66,25 @@ public class FieldInfo {
         this.cpDescriptor.sUTFStr = str;
     }
 
-    public boolean verify(String paramString, Vector paramVector) {
+    public boolean verify(String value, Vector result) {
         boolean bool = true;
-        bool = (this.accessFlags.verify(paramString, paramVector, false)) && (bool);
-        bool = (this.attributes.verify(paramString, paramVector)) && (bool);
+        bool = (this.accessFlags.verify(value, result, false)) && (bool);
+        bool = (this.attributes.verify(value, result)) && (bool);
         if ((1 != this.cpName.iTag) || (this.cpName.sUTFStr.length() == 0)) {
-            paramVector.addElement(paramString + ": Field name must point to a constant UTF8 and can not be empty.");
+            result.addElement(value + ": Field name must point to a constant UTF8 and can not be empty.");
             bool = false;
         }
         if ((1 != this.cpDescriptor.iTag) || (this.cpDescriptor.sUTFStr.length() == 0)) {
-            paramVector.addElement(paramString + ": Field descriptor must point to a constant UTF8 and can not be empty.");
+            result.addElement(value + ": Field descriptor must point to a constant UTF8 and can not be empty.");
             bool = false;
         }
         return bool;
     }
+
+    @Override
+    public String toString() {
+        String str = "FieldInfo:" + this.accessFlags.toString() + " Name: " + this.cpName + " Desc: " + this.cpDescriptor + " Attribs: " + this.attributes.toString();
+        return str;
+    }
+
 }
-
-
-/* Location:              /home/dmitrykolesnikovich/ce2.23/ce.jar!/classfile/FieldInfo.class
- * Java compiler version: 2 (46.0)
- * JD-Core Version:       0.7.1
- */

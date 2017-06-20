@@ -8,6 +8,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class LocalVariableTableEntry {
+
     public int iStartPC;
     public int iLength;
     public int iIndex;
@@ -15,8 +16,7 @@ public class LocalVariableTableEntry {
     public ConstantPoolInfo cpDescriptor;
     public ConstantPool constPool;
 
-    void read(DataInputStream paramDataInputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void read(DataInputStream paramDataInputStream, ConstantPool paramConstantPool) throws IOException {
         this.constPool = paramConstantPool;
         this.iStartPC = paramDataInputStream.readUnsignedShort();
         this.iLength = paramDataInputStream.readUnsignedShort();
@@ -27,8 +27,7 @@ public class LocalVariableTableEntry {
         this.cpDescriptor = (j > 0 ? this.constPool.getPoolInfo(j) : null);
     }
 
-    void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool) throws IOException {
         this.constPool = paramConstantPool;
         paramDataOutputStream.writeShort(this.iStartPC);
         paramDataOutputStream.writeShort(this.iLength);
@@ -57,15 +56,11 @@ public class LocalVariableTableEntry {
         }
     }
 
+    @Override
     public String toString() {
         int i = null != this.cpName ? this.constPool.getIndexOf(this.cpName) : 0;
         int j = null != this.cpDescriptor ? this.constPool.getIndexOf(this.cpDescriptor) : 0;
         return "start_pc=" + Integer.toString(this.iStartPC) + " length=" + Integer.toString(this.iLength) + " name_index=" + Integer.toString(i) + " desc_index=" + Integer.toString(j) + " index=" + Integer.toString(this.iIndex);
     }
+
 }
-
-
-/* Location:              /home/dmitrykolesnikovich/ce2.23/ce.jar!/classfile/attributes/LocalVariableTableEntry.class
- * Java compiler version: 2 (46.0)
- * JD-Core Version:       0.7.1
- */

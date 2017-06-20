@@ -22,20 +22,12 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Vector;
 
-/**
- * Class to handle interfaces.
- * <br><br>
- *
- * @author Tanmay K. Mohapatra
- * @version 1.05, 23rd Apr, 2004
- */
-
-
 public class Interfaces {
-    int iInterfacesCount;
-    Vector vectInterfaces; // contains CONSTANT_Class
 
-    void read(DataInputStream dis, ConstantPool constPool) throws IOException {
+    private int iInterfacesCount;
+    private Vector vectInterfaces; // contains CONSTANT_Class
+
+    public void read(DataInputStream dis, ConstantPool constPool) throws IOException {
         int iIndex;
         iInterfacesCount = dis.readUnsignedShort();
         vectInterfaces = new Vector(iInterfacesCount);
@@ -47,7 +39,7 @@ public class Interfaces {
         }
     }
 
-    void write(DataOutputStream dos, ConstantPool constPool) throws IOException {
+    public void write(DataOutputStream dos, ConstantPool constPool) throws IOException {
         int iIndex;
         iInterfacesCount = vectInterfaces.size();
         dos.writeShort(iInterfacesCount);
@@ -67,19 +59,6 @@ public class Interfaces {
             }
         }
         return bRet;
-    }
-
-    public String toString() {
-        String sRet;
-        String sNewLine = System.getProperty("line.separator");
-
-        iInterfacesCount = vectInterfaces.size();
-        sRet = "Interfaces count: " + iInterfacesCount + sNewLine;
-        for (int iIndex = 0; iIndex < iInterfacesCount; iIndex++) {
-            sRet += ("Interface " + (iIndex + 1) + ": const_pool_entry=" + getInterface(iIndex) + sNewLine);
-        }
-
-        return sRet;
     }
 
     public ConstantPoolInfo getInterface(int iIndex) {
@@ -115,4 +94,19 @@ public class Interfaces {
     public int getInterfacesCount() {
         return iInterfacesCount;
     }
+
+    @Override
+    public String toString() {
+        String sRet;
+        String sNewLine = System.getProperty("line.separator");
+
+        iInterfacesCount = vectInterfaces.size();
+        sRet = "Interfaces count: " + iInterfacesCount + sNewLine;
+        for (int iIndex = 0; iIndex < iInterfacesCount; iIndex++) {
+            sRet += ("Interface " + (iIndex + 1) + ": const_pool_entry=" + getInterface(iIndex) + sNewLine);
+        }
+
+        return sRet;
+    }
+
 }

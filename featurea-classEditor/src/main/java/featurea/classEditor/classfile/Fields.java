@@ -9,8 +9,7 @@ public class Fields {
     int iFieldsCount;
     Vector fieldsVect;
 
-    void read(DataInputStream paramDataInputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void read(DataInputStream paramDataInputStream, ConstantPool paramConstantPool) throws IOException {
         this.iFieldsCount = paramDataInputStream.readUnsignedShort();
         this.fieldsVect = new Vector(this.iFieldsCount);
         for (int i = 0; i < this.iFieldsCount; i++) {
@@ -20,8 +19,7 @@ public class Fields {
         }
     }
 
-    void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    public void write(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool) throws IOException {
         this.iFieldsCount = this.fieldsVect.size();
         paramDataOutputStream.writeShort(this.iFieldsCount);
         for (int i = 0; i < this.iFieldsCount; i++) {
@@ -30,24 +28,13 @@ public class Fields {
         }
     }
 
-    public boolean verify(Vector paramVector) {
+    public boolean verify(Vector result) {
         boolean bool = true;
         for (int i = 0; i < this.iFieldsCount; i++) {
             FieldInfo localFieldInfo = (FieldInfo) this.fieldsVect.elementAt(i);
-            bool = (localFieldInfo.verify("Field " + (i + 1) + "(" + localFieldInfo.getFieldName() + ")", paramVector)) && (bool);
+            bool = (localFieldInfo.verify("Field " + (i + 1) + "(" + localFieldInfo.getFieldName() + ")", result)) && (bool);
         }
         return bool;
-    }
-
-    public String toString() {
-        String str2 = System.getProperty("line.separator");
-        this.iFieldsCount = this.fieldsVect.size();
-        String str1 = "Fields count: " + this.iFieldsCount + str2;
-        int i = 0;
-        while (i < this.iFieldsCount) {
-            str1 = str1 + this.fieldsVect.elementAt(i++).toString() + str2;
-        }
-        return str1;
     }
 
     public FieldInfo getField(int paramInt) {
@@ -73,10 +60,17 @@ public class Fields {
         this.fieldsVect.addElement(paramFieldInfo);
         this.iFieldsCount += 1;
     }
+
+    @Override
+    public String toString() {
+        String str2 = System.getProperty("line.separator");
+        this.iFieldsCount = this.fieldsVect.size();
+        String str1 = "Fields count: " + this.iFieldsCount + str2;
+        int i = 0;
+        while (i < this.iFieldsCount) {
+            str1 = str1 + this.fieldsVect.elementAt(i++).toString() + str2;
+        }
+        return str1;
+    }
+
 }
-
-
-/* Location:              /home/dmitrykolesnikovich/ce2.23/ce.jar!/classfile/Fields.class
- * Java compiler version: 2 (46.0)
- * JD-Core Version:       0.7.1
- */

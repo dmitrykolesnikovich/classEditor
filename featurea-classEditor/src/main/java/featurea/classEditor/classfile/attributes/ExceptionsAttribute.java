@@ -8,8 +8,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Vector;
 
-public class ExceptionsAttribute
-        extends Attribute {
+public class ExceptionsAttribute extends Attribute {
+
     public int iNumExceptions;
     public Vector vectExceptionTypes;
 
@@ -17,8 +17,8 @@ public class ExceptionsAttribute
         this.sName = "Exceptions";
     }
 
-    void readAttributeDetails(DataInputStream paramDataInputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    @Override
+    public void readAttributeDetails(DataInputStream paramDataInputStream, ConstantPool paramConstantPool) throws IOException {
         this.iAttribLength = paramDataInputStream.readInt();
         if ((this.iNumExceptions = paramDataInputStream.readUnsignedShort()) > 0) {
             this.vectExceptionTypes = new Vector(this.iNumExceptions);
@@ -31,8 +31,8 @@ public class ExceptionsAttribute
         }
     }
 
-    void writeAttributeDetails(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool)
-            throws IOException {
+    @Override
+    public void writeAttributeDetails(DataOutputStream paramDataOutputStream, ConstantPool paramConstantPool) throws IOException {
         paramDataOutputStream.writeInt(this.iAttribLength);
         this.iNumExceptions = this.vectExceptionTypes.size();
         paramDataOutputStream.writeShort(this.iNumExceptions);
@@ -69,13 +69,14 @@ public class ExceptionsAttribute
         return arrayOfString;
     }
 
-    public boolean verify(String paramString, Vector paramVector) {
+    @Override
+    public boolean verify(String paramString, Vector result) {
         boolean bool = true;
         if (this.iNumExceptions > 0) {
             for (int i = 0; i < this.iNumExceptions; i++) {
                 ConstantPoolInfo localConstantPoolInfo = (ConstantPoolInfo) this.vectExceptionTypes.elementAt(i);
                 if (7 != localConstantPoolInfo.iTag) {
-                    paramVector.addElement(": Exception " + (i + 1) + " must point to a constant pool of type Class.");
+                    result.addElement(": Exception " + (i + 1) + " must point to a constant pool of type Class.");
                     bool = false;
                 }
             }
@@ -83,14 +84,9 @@ public class ExceptionsAttribute
         return bool;
     }
 
+    @Override
     public String toString() {
         String str = "Attribute " + this.sName + ". Number=" + this.iNumExceptions;
         return str;
     }
 }
-
-
-/* Location:              /home/dmitrykolesnikovich/ce2.23/ce.jar!/classfile/attributes/ExceptionsAttribute.class
- * Java compiler version: 2 (46.0)
- * JD-Core Version:       0.7.1
- */

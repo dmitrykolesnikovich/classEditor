@@ -20,14 +20,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-/**
- * Class to represent one instruction.
- *
- * @author Tanmay K. Mohapatra
- * @version 1.01, 11th May, 2002
- */
-
 public class Instruction {
+
     public int iInstruction;
     public int iDataLength;
     public int[] aiData = new int[4];
@@ -36,12 +30,12 @@ public class Instruction {
     public int iPaddingLength, iDefaultByte, iNPairs, iLowInt, iHighInt;
     public int[] aiMatchPairs, aiOffsetPairs, aiDefault;
 
-    void readInstruction(DataInputStream dis, ConstantPool constPool, int iOffset) throws IOException {
+    public void readInstruction(DataInputStream dis, ConstantPool constPool, int iOffset) throws IOException {
         iInstruction = dis.readUnsignedByte();
         readInstructionData(dis, constPool, iInstruction, iOffset + 1);
     }
 
-    void writeInstruction(DataOutputStream dos, ConstantPool constPool) throws IOException {
+    public void writeInstruction(DataOutputStream dos, ConstantPool constPool) throws IOException {
         dos.writeByte(iInstruction);
         writeInstructionData(dos, constPool, iInstruction);
     }
@@ -383,6 +377,7 @@ public class Instruction {
         }
     }
 
+    @Override
     public String toString() {
         String sRet;
         sRet = Instructions.sInstrCodes[iInstruction];
@@ -407,4 +402,5 @@ public class Instruction {
         }
         return sRet;
     }
+
 }

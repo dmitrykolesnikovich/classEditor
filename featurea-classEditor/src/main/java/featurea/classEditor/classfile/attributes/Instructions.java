@@ -174,7 +174,6 @@ public final class Instructions {
         sInstrCodes[0x21] = "lload_3";
         sInstrCodes[0x69] = "lmul";
         sInstrCodes[0x75] = "lneg";
-
         sInstrCodes[0xab] = "lookupswitch";
         sInstrCodes[0x81] = "lor";
         sInstrCodes[0x71] = "lrem";

@@ -1,13 +1,3 @@
-/*
- * NavigatingClassVisitor.java
- *
- * Created on September 23, 2003, 10:47 PM
- *
- * Modification Log:
- * 1.00   28th Sep 2003   Tanmay   Original version.
- * 1.01   22nd Apr 2004   Tanmay   Made visitInterfaces more granular
- */
-
 package featurea.classEditor.visitors;
 
 import featurea.classEditor.classfile.*;
@@ -51,12 +41,14 @@ abstract class NavigatingClassVisitor implements ClassVisitor {
         }
     }
 
+    @Override
     public void visitAttributes(Attributes attrs) {
         for (int iIndex = 0; iIndex < attrs.iAttributesCount; iIndex++) {
             visitAttribute((Attribute) attrs.attribVect.elementAt(iIndex));
         }
     }
 
+    @Override
     public void visitClass(ClassFile classFile) {
         visitVersion(classFile.version);
         visitAccessFlags(classFile.accessFlags);
@@ -68,14 +60,17 @@ abstract class NavigatingClassVisitor implements ClassVisitor {
         visitMethods(classFile.methods);
     }
 
+    @Override
     public void visitClassNames(ClassNames names) {
         return; // no sub levels
     }
 
+    @Override
     public void visitCode(Code code) {
         return; // no sub levels
     }
 
+    @Override
     public void visitCodeAttribute(CodeAttribute codeattr) {
         int iExceptTableLength = codeattr.vectExceptionTableEntries.size();
         if (0 < iExceptTableLength) {
@@ -87,6 +82,7 @@ abstract class NavigatingClassVisitor implements ClassVisitor {
         visitAttributes(codeattr.codeAttributes);
     }
 
+    @Override
     public void visitConstantPool(ConstantPool pool) {
         int iNumPoolInfos = pool.getPoolInfoCount();
         for (int iIndex = 0; iIndex < iNumPoolInfos; iIndex++) {
@@ -98,30 +94,37 @@ abstract class NavigatingClassVisitor implements ClassVisitor {
         }
     }
 
+    @Override
     public void visitConstantPoolInfo(ConstantPoolInfo poolInfo) {
         return; // no sub levels
     }
 
+    @Override
     public void visitConstantValueAttribute(ConstantValueAttribute constval) {
         return; // no sub levels
     }
 
+    @Override
     public void visitDeprecatedAttribute(DeprecatedAttribute depr) {
         return; // no sub levels
     }
 
+    @Override
     public void visitExceptionTableEntry(ExceptionTableEntry extab) {
         return; // no sub levels
     }
 
+    @Override
     public void visitExceptionsAttribute(ExceptionsAttribute ex) {
         return; // no sub levels
     }
 
+    @Override
     public void visitFieldInfo(FieldInfo fldInfo) {
         return; // no sub levels
     }
 
+    @Override
     public void visitFields(Fields flds) {
         int iFieldsCount = flds.getFieldsCount();
         for (int iIndex = 0; iIndex < iFieldsCount; iIndex++) {
@@ -129,20 +132,24 @@ abstract class NavigatingClassVisitor implements ClassVisitor {
         }
     }
 
+    @Override
     public void visitInnerClassInfo(InnerClassInfo innerclass) {
         visitAccessFlags(innerclass.accFlags);
     }
 
+    @Override
     public void visitInnerClassesAttribute(InnerClassesAttribute classattr) {
         for (int iIndex = 0; iIndex < classattr.getNumClasses(); iIndex++) {
             visitInnerClassInfo(classattr.getInnerClassInfo(iIndex));
         }
     }
 
+    @Override
     public void visitInstruction(Instruction instr) {
         return; // no sub levels
     }
 
+    @Override
     public void visitInstructions(Instructions instrs) {
     }
 
@@ -150,6 +157,7 @@ abstract class NavigatingClassVisitor implements ClassVisitor {
         return; // no sub levels
     }
 
+    @Override
     public void visitInterfaces(Interfaces interfaces) {
         int iInterfacesCount = interfaces.getInterfacesCount();
         for (int iIndex = 0; iIndex < iInterfacesCount; iIndex++) {
@@ -157,6 +165,7 @@ abstract class NavigatingClassVisitor implements ClassVisitor {
         }
     }
 
+    @Override
     public void visitLineNumberTableAttribute(LineNumberTableAttribute linenumtab) {
         int iSize = linenumtab.vectEntries.size();
         if (iSize > 0) {
@@ -166,10 +175,12 @@ abstract class NavigatingClassVisitor implements ClassVisitor {
         }
     }
 
+    @Override
     public void visitLineNumberTableEntry(LineNumberTableEntry linenumtabentry) {
         return; // no sub levels
     }
 
+    @Override
     public void visitLocalVariableTableAttribute(LocalVariableTableAttribute lvtab) {
         int iLocalVariableTableLength = lvtab.vectLocalVariableTable.size();
         if (iLocalVariableTableLength > 0) {
@@ -179,14 +190,17 @@ abstract class NavigatingClassVisitor implements ClassVisitor {
         }
     }
 
+    @Override
     public void visitLocalVariableTableEntry(LocalVariableTableEntry lvtabentry) {
         return; // no sub levels
     }
 
+    @Override
     public void visitMethodInfo(MethodInfo methodInfo) {
         visitAttributes(methodInfo.attributes);
     }
 
+    @Override
     public void visitMethods(Methods methods) {
         int iMethodsCount = methods.getMethodsCount();
         for (int iIndex = 0; iIndex < iMethodsCount; iIndex++) {
@@ -194,19 +208,24 @@ abstract class NavigatingClassVisitor implements ClassVisitor {
         }
     }
 
+    @Override
     public void visitSourceFileAttribute(SourceFileAttribute src) {
         return; // no sub levels
     }
 
+    @Override
     public void visitSyntheticAttribute(SyntheticAttribute synth) {
         return; // no sub levels
     }
 
+    @Override
     public void visitUnknownAttribute(UnknownAttribute unknown) {
         return; // no sub levels
     }
 
+    @Override
     public void visitVersion(Version ver) {
         return; // no sub levels
     }
+
 }

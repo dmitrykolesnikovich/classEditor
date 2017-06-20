@@ -4,6 +4,7 @@ import featurea.classEditor.classfile.*;
 import featurea.classEditor.classfile.attributes.*;
 
 public abstract interface ClassVisitor {
+
     public abstract void visitClass(ClassFile paramClassFile);
 
     public abstract void visitAccessFlags(AccessFlags paramAccessFlags);
@@ -64,9 +65,3 @@ public abstract interface ClassVisitor {
 
     public abstract void visitUnknownAttribute(UnknownAttribute paramUnknownAttribute);
 }
-
-
-/* Location:              /home/dmitrykolesnikovich/ce2.23/ce.jar!/visitors/ClassVisitor.class
- * Java compiler version: 2 (46.0)
- * JD-Core Version:       0.7.1
- */
